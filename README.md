@@ -38,8 +38,8 @@ payment amounts.
 
 # Key SQL concepts used: 
 
- *JOIN* (to combine data from multiple tables) 
- *GROUP BY* (to group data based on specific columns like doctor, department, or status) 
- *COUNT()* and *SUM()* (to calculate totals) 
- *ORDER BY* (to rank or sort data based on specific metrics) 
- *AVG()* (to calculate average payment amounts)
+*JOIN* (to combine data from multiple tables) 
+*GROUP BY* (to group data based on specific columns like doctor, department, or status) 
+*COUNT()* and *SUM()* (to calculate totals) 
+*ORDER BY* (to rank or sort data based on specific metrics) 
+*AVG()* (to calculate average payment amounts)
