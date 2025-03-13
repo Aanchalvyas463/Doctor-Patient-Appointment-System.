@@ -1,0 +1,322 @@
+SQL case-based assignment for a Doctor-Patient Appointment System.
+
+#####################################################################################
+
+show databases;
+
+########################## Creating the New DATABASE #################################
+
+
+create database appointment_system;
+
+use appointment_system;
+
+
+########################## Creating the structure of Tables #################################
+
+
+ create table Specialties_Table (
+    -> specialty_id int PRIMARY KEY,
+    -> specialty_name varchar(100)
+    -> );
+
+
+ create table Department_Table(
+    -> department_id int NOT NULL,
+    -> department_name varchar(100),
+    -> primary key (department_id)
+    -> );
+
+
+ create table Patient_Table(
+    -> patient_id int,
+    -> first_name varchar (100),
+    -> last_name varchar (100),
+    -> email varchar (100),
+    -> phone varchar (20),
+    -> date_of_birth DATE,
+    -> gender varchar (10),
+    -> address TEXT,
+    -> PRIMARY KEY (patient_id)
+    -> );
+
+
+create table Doctor_table(
+    -> doctor_id int PRIMARY KEY,
+    -> first_name varchar(100),
+    -> last_name varchar(100),
+    -> email varchar(100),
+    -> phone varchar (20),
+    -> department_id int,
+    -> specialty_id int,
+    -> FOREIGN KEY(department_id) REFERENCES Department_Table(department_id),
+    -> FOREIGN KEY(specialty_id) REFERENCES Specialties_Table(specialty_id)
+    -> );
+
+
+create table Appointment_Table(
+    -> appointment_id int PRIMARY KEY,
+    -> doctor_id int,
+    -> patient_id int,
+    -> appointment_date DATETIME,
+    -> reason TEXT,
+    -> status varchar(20),
+    -> FOREIGN KEY(doctor_id) REFERENCES doctor_table(doctor_id),
+    -> FOREIGN KEY(patient_id) REFERENCES patient_table(patient_id)
+    -> );
+
+
+create table Payment_Table(
+    -> payment_id int PRIMARY KEY,
+    -> appointment_id int,
+    -> payment_date DATE,
+    -> payment_amount DECIMAL(10,2),
+    -> payment_method varchar(20),
+    -> FOREIGN KEY(appointment_id) REFERENCES Appointment_Table(appointment_id)
+    -> );
+
+
+########################## inserting the values #################################
+
+
+desc specialties_table;
+
+INSERT INTO specialties_table(specialty_id, specialty_name)
+-> VALUES (5201,'Gynecology');
+
+INSERT INTO specialties_table(specialty_id, specialty_name)
+-> VALUES (5202,'Cosmetic_Dermatology');
+
+INSERT INTO specialties_table(specialty_id, specialty_name)
+    -> VALUES (5203,'Cardiology');
+
+INSERT INTO specialties_table(specialty_id, specialty_name)
+    -> VALUES (5204,'Retina_Specialist');
+
+INSERT INTO specialties_table(specialty_id, specialty_name)
+    -> VALUES (5205,'Psychiatry');
+
+select * from specialties_table;
+
+
+#######################################################################
+
+
+desc department_table;
+
+INSERT INTO department_table(department_id, department_name)
+    -> VALUES (9201,'Clinic');
+
+INSERT INTO department_table(department_id, department_name)
+    -> VALUES (9202,'Primary_care');
+
+INSERT INTO department_table(department_id, department_name)
+    -> VALUES (9203,'Specialty_care');
+
+INSERT INTO department_table(department_id, department_name)
+    -> VALUES (9204,'Outpatient_service');
+
+INSERT INTO department_table(department_id, department_name)
+    -> VALUES (9205,'Surgical_dept');
+
+select * from department_table;
+
+
+#######################################################################
+
+
+desc patient_table;
+
+INSERT INTO patient_table (patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES(6601,'John','Smith','johnsmith01@gamil.com',5679344579,'2001/04/01','Male','A2,main road,Chicago');
+
+INSERT INTO patient_table(patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES(6602,'Nick','Roy','nickroy02@gamil.com',5672544579,'2002/06/11','Male','C4,Old monk,America');
+
+INSERT INTO patient_table(patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES(6603,'Sumit','Garg','sumitgarg03@gamil.com',9872544579,'2003/0010/25','Male','B-601,Sadar bajar,Mumbai');
+
+INSERT INTO patient_table(patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES (6604,'Anika','Sharma','anikasharma04@gmail.com',9874567891,'2001/06/25','Female','A2,main road, Chicago');
+
+INSERT INTO patient_table(patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES (6605,'Seema','Roy','seemaroy05@gmail.com',9222557891,'2002/04/15','Female','C4,old monk,America');
+
+
+INSERT INTO patient_table(patient_id,first_name,last_name,email,phone,date_of_birth,gender,address)
+    -> VALUES (6606,'Anish','Tayal','anishtayal06@gmail.com',9478457891,'2003/11/11','Male','V2,New Plaza,Delhi');
+
+
+select *  from patient_table;
+ 
+
+###########################################################################################
+
+
+desc doctor_table;
+
+INSERT INTO doctor_table(doctor_id,first_name,last_name,email,phone,department_id,specialty_id,joining_date)
+    -> VALUES(4401,'Dr.Piyush','Jain','piyush232@gamil.com',6565947472,9201,5205,'2022/05/06');
+
+INSERT INTO doctor_table(doctor_id,first_name,last_name,email,phone,department_id,specialty_id,joining_date)
+    -> VALUES (4402,'Dr.Anup','Singh','anup221sin@gmail.com',6868745421,9202,5202,'2024/08/04');
+
+INSERT INTO doctor_table(doctor_id,first_name,last_name,email,phone,department_id,specialty_id,joining_date)
+    -> VALUES (4403,'Dr.Priya','Goyal','priya1121g@gmail.com',6868745421,9203,5201,'2024/08/01');
+
+ INSERT INTO doctor_table(doctor_id,first_name,last_name,email,phone,department_id,specialty_id,joining_date)
+    -> VALUES (4404,'Dr.P.D.','Vyas','pdvyas77@gmail.com',9758745421,9205,5204,'2023/02/17');
+
+INSERT INTO doctor_table(doctor_id,first_name,last_name,email,phone,department_id,specialty_id,joining_date)
+    -> VALUES (4405,'Dr.Atul','Sethi','atul1dr.sethi@gmail.com',9421445421,9204,5203,'2020/01/13');
+
+select *  from doctor_table;
+
+
+#################################################################################
+
+
+desc appointment_table;
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (001,4401,6604,'2025/03/15','For regular Consulting','scheduled');
+
+ INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (002,4404,6601,'2025/03/14','For Eye Operation','scheduled');
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (003,4401,6601,'2025/03/15','For regular Consulting','Cancelled');
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (004,4403,6605,'2025/03/12','For Pregnency issue','Completed');
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (005,4403,6604,'2025/03/16 15:30:00','Consulting for Cramps','Scheduled');
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES (6,4401,6603,'2025/03/17 07:30:00', 'Consulting Family issue','Scheduled');
+
+INSERT INTO appointment_table(appointment_id,doctor_id,patient_id,appointment_date,reason,status)
+    -> VALUES(7,4404,6602,'2025/03/11 10:15:00','Eye Checkup','Completed');
+
+select *  from appointment_table;
+
+
+#################################################################
+
+
+desc payment_table;
+
+INSERT INTO payment_table(payment_id,appointment_id,payment_date,payment_amount,payment_method)
+    -> VALUES (1011,1,'2025/03/14',1500,'Credit Card');
+
+INSERT INTO payment_table(payment_id,appointment_id,payment_date,payment_amount,payment_method)
+    -> VALUES (1012,4,'2025/03/12',50000,'Insurance');
+
+INSERT INTO payment_table(payment_id,appointment_id,payment_date,payment_amount,payment_method)
+    -> VALUES (1013,2,'2025/03/12',12500,'Cash');
+
+INSERT INTO payment_table(payment_id,appointment_id,payment_date,payment_amount,payment_method)
+    -> VALUES (1014,5,'2025/03/13',3500,'Credit Card');
+
+INSERT INTO payment_table(payment_id,appointment_id,payment_date,payment_amount,payment_method)
+    -> VALUES(1015,7,'2025/03/13',2500,'Cash');
+
+select *  from payment_table;
+
+
+########################################################################################################
+
+
+SQL Queries for the Case Study
+
+
+########################################################################################################
+
+1. Find the Total Number of Appointments for Each Doctor 
+ 
+    SELECT d.doctor_id, d.first_name, count(a.appointment_id) AS count_of_appointments 
+    -> FROM doctor_table d 
+    -> LEFT JOIN appointment_table a ON d.doctor_id = a.doctor_id 
+    -> GROUP BY d.doctor_id, d.first_name;
+
+
+2. List All Patients Who Have an Appointment with a Specific Doctor (e.g., Dr. John Smith)
+
+    select p.patient_id, p.first_name
+    -> from patient_table p
+    -> join appointment_table a on p.patient_id=a.patient_id
+    -> join doctor_table d on a.doctor_id=d.doctor_id
+    -> where d.first_name = 'Dr.Priya';
+
+3. Find the Number of Appointments Scheduled in a Specific Department 
+
+    select count(a.appointment_id) AS Appointments
+    -> from appointment_table a
+    -> join doctor_table d on a.doctor_id = d.doctor_id
+    -> join department_table dept on d.department_id = dept.department_id
+    -> where dept.department_name = 'Specialty_care';
+
+      OR YOU CAN USE ALTERNATIVE QUERY AS WELL
+
+    select dept.department_name, count(a.appointment_id) AS Appointments
+    -> from appointment_table a
+    -> join doctor_table d On a.doctor_id = d.doctor_id
+    -> join department_table dept on d.department_id = dept.department_id
+    -> group by department_name;
+
+4. Find the Most Popular Specialty Based on Number of Appointments 
+
+    select s.specialty_name, count(a.appointment_id) AS Appointments
+    -> from doctor_table d
+    -> join appointment_table a on d.doctor_id= a.doctor_id
+    -> join specialties_table s on d.specialty_id = s.specialty_id
+    -> group by s.specialty_name
+    -> order by Appointments DESC
+    -> LIMIT 1;
+
+5. Get the Total Payment Amount for All Completed Appointments
+
+    Select sum(p.payment_amount) AS Total_Amount
+    -> from payment_table p
+    -> join appointment_table a ON a.appointment_id = p.appointment_id
+    -> Where a.status = 'Completed';
+
+6. Find the Number of Patients Seen by Each Doctor
+
+    select d.doctor_id, d.first_name, count(distinct a.patient_id) AS Patients
+    -> from doctor_table d
+    -> left join appointment_table a on a.doctor_id = d.doctor_id
+    -> group by d.doctor_id, d.first_name
+    -> order by Patients DESC;
+
+7. List All Patients Who Have Missed Their Appointments (Status 'Cancelled') 
+
+    select p.patient_id, p.first_name
+    -> from patient_table p
+    -> join appointment_table a on a.patient_id = p.patient_id
+    -> where a.status = 'Cancelled';
+
+8. Find the Total Number of Appointments for Each Status (Scheduled, Completed, Cancelled) 
+
+    select count(a.appointment_id),a.status
+    -> from appointment_table a
+    -> group by a.status;
+
+9. Get the Average Payment Amount for Completed Appointments 
+
+    select avg(p.payment_amount),a.status
+    -> from payment_table p
+    -> join appointment_table a on a.appointment_id = p.appointment_id
+    -> where a.status = 'Completed';
+
+10. Find the Doctor with the Highest Number of Appointments 
+
+    select d.doctor_id,d.first_name,count(a.appointment_id) AS Appointments
+    -> from doctor_table d
+    -> join appointment_table a on a.doctor_id = d.doctor_id
+    -> group by d.doctor_id, d.first_name
+    -> Order by Appointments DESC
+    -> LIMIT 1;
+
+##################################################################################################
